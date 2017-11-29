@@ -15,3 +15,6 @@ This project describes steps to develop a Python application for your Raspberry 
 5. Install pybluez and setup serial bluetooth adapter
 6. Install Serial Bluetooth Terminal on your phone
 7. Connect and control LED
+
+## Setup Bluetooth on RasPi
+

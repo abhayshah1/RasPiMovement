@@ -18,3 +18,5 @@ This project describes steps to develop a Python application for your Raspberry 
 
 ## Setup Bluetooth on RasPi
 
+## Use of SB Components Motor API
+https://github.com/sbcshop/motor-shield

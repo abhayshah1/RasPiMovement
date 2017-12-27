@@ -1,5 +1,8 @@
-# PiMotor
-import PiMotor
+#GPIO
+from gpiozero import LED
+from gpiozero import PWMLED
+from gpiozero import DigitalOutputDevice
+from gpiozero import PWMOutputDevice
 
 #System
 from time import sleep
@@ -12,9 +15,10 @@ from bluetooth import *
 #Custom Imports
 import  MoveConstants
 
-#Setup Motors
-rightMotor = PiMotor.Motor(MoveConstants.RIGHT_MOTOR, 1)
-leftMotor = PiMotor.Motor(MoveConstants.LEFT_MOTOR, 1)
+#Setup pins
+backward = DigitalOutputDevice(MoveConstants.GPIO_BACKWARD_PIN)
+frontward = DigitalOutputDevice(MoveConstants.GPIO_FORWARD_PIN)
+motor = PWMOutputDevice(MoveConstants.GPIO_MOTOR_PIN)
 
 #Setup BT server
 server_sock=BluetoothSocket( RFCOMM )
@@ -39,24 +43,19 @@ print "Accepted connection from ", client_info
 
 try:
     while True:
-        direction = client_sock.recv(1024)
-        if ( direction == "FORWARD" ):
-            rightMotor.forward(100)
-            leftMotor.forward(100)
-        elif ( direction == "REVERSE" ):
-            rightMotor.reverse(100)
-            leftMotor.reverse(100)
-        elif ( direction == "LEFT" ):
-            rightMotor.forward(100)
-            leftMotor.reverse(100)
-        elif( direction == "RIGHT" ):
-            rightMotor.reverse(100)
-            leftMotor.forward(100)
-        elif len(direction) == 0: break
-        print "received [%s]" % direction
-        sleep(2)
-        rightMotor.stop()
-        leftMotor.stop()
+        data = client_sock.recv(1024)
+        if ( data == "UP" ):
+            print ("UP Key")
+            frontward.blink(on_time=0.5,n=1)
+        elif ( data == "DOWN" ):
+            print ("DOWN Key")
+            backward.blink(on_time=0.5,n=1)
+        elif ( data == "MOTOR" ):
+            motor.on()
+            print (motor.value)
+            motor.off()
+        elif len(data) == 0: break
+        print "received [%s]" % data
 except IOError:
     pass
 

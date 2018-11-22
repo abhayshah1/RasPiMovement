@@ -7,3 +7,6 @@ GPIO_RIGHT_PIN = 19
 #Motor configuration from PiMotor library. PiMotor internally uses Board numbering
 LEFT_MOTOR = "MOTOR1"
 RIGHT_MOTOR = "MOTOR2"
+
+#default speed
+MOTOR_SPEED = 100

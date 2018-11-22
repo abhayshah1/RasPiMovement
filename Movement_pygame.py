@@ -2,6 +2,7 @@
 from gpiozero import LED
 from gpiozero import PWMLED
 from gpiozero import DigitalOutputDevice
+from gpiozero import PWMOutputDevice
 
 #System
 from time import sleep
@@ -20,6 +21,7 @@ import  MoveConstants
 #Setup pins
 backward = DigitalOutputDevice(MoveConstants.GPIO_BACKWARD_PIN)
 frontward = DigitalOutputDevice(MoveConstants.GPIO_FORWARD_PIN)
+motor = PWMOutputDevice(MoveConstants.GPIO_MOTOR_PIN)
 
 #Setup to detect keyboard -- this should be taken out with bluetooth
 pygame.init()
@@ -35,4 +37,3 @@ while True:
             elif event.key == pygame.K_DOWN:
                 print ("DOWN Key")
                 backward.blink(on_time=0.5,n=1)
-
